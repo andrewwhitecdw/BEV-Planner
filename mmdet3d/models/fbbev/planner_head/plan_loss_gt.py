@@ -290,7 +290,7 @@ def plan_col_loss(
 
     dist = torch.linalg.norm(pred[:, None, :, :] - target, dim=-1)
     dist_mask = dist > dis_thresh
-    target[dist_mask] = 1e6
+    target = torch.where(dist_mask[..., None], torch.full_like(target, 1e6), target)
 
     # [B, num_agent, fut_ts]
     x_dist = torch.abs(pred[:, None, :, 0] - target[..., 0])
