@@ -457,7 +457,11 @@ class BEVPlanner(CenterPoint):
 
         if self.with_ego_status:
             can_bus_info = torch.cat(kwargs['can_bus_info'])
-            bev_feat = bev_feat + self.can_bus_mlp(can_bus_info)[:, :, None, None]
+            can_bus_feat = self.can_bus_mlp(can_bus_info)
+            # Broadcast ego-status embedding to both 4D BEV and 5D voxel features.
+            bev_feat = bev_feat + can_bus_feat.view(
+                can_bus_feat.shape[0], can_bus_feat.shape[1],
+                *([1] * (bev_feat.dim() - 2)))
 
         bev_feat = self.bev_encoder(bev_feat)
         
