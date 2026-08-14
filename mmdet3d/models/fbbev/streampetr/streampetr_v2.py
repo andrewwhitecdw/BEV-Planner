@@ -21,7 +21,6 @@ from .streampetr_utils import *
 import copy
 from mmdet.models.utils import NormedLinear
 from mmdet3d.core import bbox3d2result, merge_aug_bboxes_3d
-from mmdet3d.models.fbbev.utils import save_tensor
 
 @HEADS.register_module()
 class SparseHead4BEV(AnchorFreeHead):
@@ -204,7 +203,6 @@ class SparseHead4BEV(AnchorFreeHead):
 
         self._init_layers()
         self.reset_memory()
-        self.count = 0
 
     def _init_layers(self):
         """Initialize layers of the transformer head."""
@@ -453,10 +451,6 @@ class SparseHead4BEV(AnchorFreeHead):
         rec_velo = topk_gather(rec_velo, topk_indexes).detach()
         
 
-        # if self.count == 1:
-        #     from IPython import embed
-        #     embed()
-        #     exit()
         self.memory_embedding = torch.cat([rec_memory, self.memory_embedding], dim=1)
         self.memory_timestamp = torch.cat([rec_timestamp, self.memory_timestamp], dim=1)
         self.memory_egopose= torch.cat([rec_ego_pose, self.memory_egopose], dim=1)
@@ -513,22 +507,7 @@ class SparseHead4BEV(AnchorFreeHead):
 
 
         self.pre_update_memory(data)
-        # mlvl_feats = data['img_feats']
         B = mlvl_feats[0].size(0)
-        # points_to_draw = (self.memory_reference_point -  self.pc_range[0:3])/(self.pc_range[3:6] - self.pc_range[0:3]) * 128
-        # points_to_draw = points_to_draw[0, :, :2]
-        # # print(points_to_draw.shape)
-        # save_tensor(mlvl_feats[0].abs().std(1), f'bev_{self.count}.png')
-        # import cv2
-        # img = cv2.imread(f'bev_{self.count}.png')
-        # for i in range(10):
-        #     img = cv2.circle(img, center=points_to_draw[256*((self.count)%4)+i].cpu().numpy().astype(np.int), thickness=1, radius=1, color=(255,0,0))
-        # cv2.imwrite(f'a_{self.count}.png', img)
-        # self.count +=1
-        # if self.count == 10:
-        #     from IPython import embed
-        #     embed()
-        #     exit()
 
         reference_points = self.reference_points.weight
         dtype = reference_points.dtype
