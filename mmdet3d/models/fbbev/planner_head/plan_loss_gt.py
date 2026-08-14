@@ -126,7 +126,7 @@ def plan_map_bound_loss(pred, target, dis_thresh=1.0):
                                         bd_inst_starts, bd_inst_ends)
     intersect_mask = intersect_mask.reshape(B, T, P-1)
     intersect_mask = intersect_mask.any(dim=-1)
-    intersect_idx = (intersect_mask == True).nonzero()
+    intersect_idx = intersect_mask.nonzero()
 
     target = target.view(target.shape[0], -1, target.shape[-1])
     # [B, fut_ts, num_vec*num_pts]
