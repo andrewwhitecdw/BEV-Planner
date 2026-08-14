@@ -102,11 +102,7 @@ norm_cfg = dict(type='BN2d')
 num_queries = 100
 
 # category configs
-cat2id = {
-    'ped_crossing': 0,
-    'divider': 1,
-    'boundary': 2,
-}
+cat2id = {cls: i for i, cls in enumerate(map_classes)}
 num_class = max(list(cat2id.values())) + 1
 
 
