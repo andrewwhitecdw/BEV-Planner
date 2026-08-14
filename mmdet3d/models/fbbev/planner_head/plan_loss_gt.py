@@ -284,6 +284,7 @@ def plan_col_loss(
         torch.Tensor: Calculated loss [B, fut_mode, fut_ts, 2]
     """
     pred = pred.cumsum(dim=-2)
+    target = target.clone()
     # agent_fut_preds = agent_fut_preds.cumsum(dim=-2)
     # target = target[:, :, None, :] + agent_fut_preds
     # filter distant agents from ego vehicle
