@@ -181,7 +181,8 @@ model = dict(
     map_head=None,
     motion_head=None,
     planner_head=dict(
-        type='NaivePlannerHead'
+        type='NaivePlannerHead',
+        with_ego_status=True,
     ),
     # model training and testing settings
     train_cfg=dict(pts=dict(
