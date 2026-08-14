@@ -457,7 +457,11 @@ class BEVPlanner(CenterPoint):
 
         if self.with_ego_status:
             can_bus_info = torch.cat(kwargs['can_bus_info'])
-            bev_feat = bev_feat + self.can_bus_mlp(can_bus_info)[:, :, None, None]
+            ego_emb = self.can_bus_mlp(can_bus_info)
+            if bev_feat.dim() == 5:
+                bev_feat = bev_feat + ego_emb[:, :, None, None, None]
+            else:
+                bev_feat = bev_feat + ego_emb[:, :, None, None]
 
         bev_feat = self.bev_encoder(bev_feat)
         
