@@ -295,14 +295,9 @@ def plan_col_loss(
     # [B, num_agent, fut_ts]
     x_dist = torch.abs(pred[:, None, :, 0] - target[..., 0])
     y_dist = torch.abs(pred[:, None, :, 1] - target[..., 1])
-    x_min_idxs = torch.argmin(x_dist, dim=1).tolist()
-    y_min_idxs = torch.argmin(y_dist, dim=1).tolist()
-    batch_idxs = [[i] for i in range(y_dist.shape[0])]
-    ts_idxs = [[i for i in range(y_dist.shape[-1])] for j in range(y_dist.shape[0])]
-
     # [B, fut_ts]
-    x_min_dist = x_dist[batch_idxs, x_min_idxs, ts_idxs]
-    y_min_dist = y_dist[batch_idxs, y_min_idxs, ts_idxs]
+    x_min_dist = torch.min(x_dist, dim=1).values
+    y_min_dist = torch.min(y_dist, dim=1).values
     x_loss = x_min_dist
     safe_idx = x_loss > x_dis_thresh
     unsafe_idx = x_loss <= x_dis_thresh
