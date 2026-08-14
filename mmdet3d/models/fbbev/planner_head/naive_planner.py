@@ -72,7 +72,8 @@ class NaivePlannerHead(BaseModule):
                  with_ego_status=False,
                  dist_func_type='MDE',
                  use_map_info=False,
-                **kwargs):
+                  map_alpha=1.0,
+               **kwargs):
 
         if 'code_size' in kwargs:
             self.code_size = kwargs['code_size']
@@ -80,6 +81,7 @@ class NaivePlannerHead(BaseModule):
             self.code_size = 2
         self.use_map_info = use_map_info
 
+        self.map_alpha = map_alpha
         self.with_ego_status = with_ego_status
         self.num_query = num_query
         self.in_channels = in_channels
