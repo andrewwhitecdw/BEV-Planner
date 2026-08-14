@@ -225,6 +225,11 @@ class BEVPlanner(CenterPoint):
             else:
                 _, output_dim, ouput_H, output_W = x_list.shape
                 return x_list.view(B, N, output_dim, ouput_H, output_W), [x_list.view(B, N, output_dim, ouput_H, output_W)]
+        else:
+            if type(x) in [list, tuple]:
+                x = x[-1]
+            _, output_dim, ouput_H, output_W = x.shape
+            return x.view(B, N, output_dim, ouput_H, output_W), [x.view(B, N, output_dim, ouput_H, output_W)]
         
 
     @force_fp32()
