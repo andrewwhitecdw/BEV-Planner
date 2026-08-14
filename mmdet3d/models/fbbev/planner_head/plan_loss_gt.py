@@ -290,6 +290,10 @@ def plan_col_loss(
 
     dist = torch.linalg.norm(pred[:, None, :, :] - target, dim=-1)
     dist_mask = dist > dis_thresh
+    # Do not mutate the caller's target tensor (which may carry an autograd
+    # graph). Compute the mask on the original tensor, then apply it to a
+    # fresh clone so the clone is modified before any autograd use.
+    target = target.clone()
     target[dist_mask] = 1e6
 
     # [B, num_agent, fut_ts]
