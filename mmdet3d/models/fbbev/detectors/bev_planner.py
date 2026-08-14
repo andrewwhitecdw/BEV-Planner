@@ -709,7 +709,7 @@ class BEVPlanner(CenterPoint):
             preds_map_dicts = [None] # dummy
             pred_map = [None for _ in range(len(img_metas))]
 
-        if self.with_specific_component('motion_head'):
+        if self.with_specific_component('motion_head') and self.with_pts_bbox and getattr(self.pts_bbox_head, 'tracking', False):
             preds_motion_dicts = self.motion_head(
                 agent_instances,
                 preds_map_dicts[-1],
