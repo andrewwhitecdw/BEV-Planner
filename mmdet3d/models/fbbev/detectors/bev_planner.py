@@ -430,7 +430,7 @@ class BEVPlanner(CenterPoint):
             assert bev_feat is not None
             bev_mask_logit = self.frpn(bev_feat)
             bev_mask = bev_mask_logit.sigmoid() > self.frpn.mask_thre            
-            if bev_mask.requires_grad: # during training phase
+            if self.training:
                 gt_bev_mask = kwargs['gt_bev_mask'].to(torch.bool)
                 bev_mask = gt_bev_mask | bev_mask
             return_map['bev_mask_logit'] = bev_mask_logit    
