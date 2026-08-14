@@ -396,7 +396,7 @@ test_data_config = dict(
     pipeline=test_pipeline,
     map_ann_file=data_root + 'nuscenes_map_infos_102x102_val.pkl',
     map_eval_cfg=dict(
-        region = (102.4, 102.4) # (H, W)
+        region = roi_size # (H, W)
     ),
     load_fut_bbox_info=True,
     sequences_split_num=test_sequences_split_num,
