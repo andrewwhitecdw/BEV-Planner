@@ -437,10 +437,7 @@ def plan_map_dir_loss(pred, target, dis_thresh=2.0):
     map_pts = torch.cat([min_pts, min_pts_next], dim=2)
     lane_yaw = torch.atan2(torch.diff(map_pts[..., 1]).squeeze(-1), torch.diff(map_pts[..., 0]).squeeze(-1))  # [B, fut_ts]
     yaw_diff = traj_yaw - lane_yaw
-    yaw_diff[yaw_diff > math.pi] =  yaw_diff[yaw_diff > math.pi] - math.pi
-    yaw_diff[yaw_diff > math.pi/2] = yaw_diff[yaw_diff > math.pi/2] - math.pi
-    yaw_diff[yaw_diff < -math.pi] = yaw_diff[yaw_diff < -math.pi] + math.pi
-    yaw_diff[yaw_diff < -math.pi/2] = yaw_diff[yaw_diff < -math.pi/2] + math.pi
+    yaw_diff = torch.atan2(torch.sin(yaw_diff), torch.cos(yaw_diff))
     yaw_diff[dist_mask] = 0  # loss = 0 if no lane around ego
     yaw_diff[static_mask] = 0  # loss = 0 if ego is static
 
