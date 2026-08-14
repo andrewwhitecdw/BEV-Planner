@@ -533,6 +533,7 @@ class BEVPlanner(CenterPoint):
         results= self.extract_feat(
             points, img=img_inputs, img_metas=img_metas, **kwargs)
         losses = dict()
+        agent_instances = None
 
         if self.with_pts_bbox:
             preds_agent_dicts = self.pts_bbox_head(results, img_metas,  gt_bboxes_3d, gt_labels_3d)
@@ -573,7 +574,7 @@ class BEVPlanner(CenterPoint):
             loss_depth = self.depth_net.get_depth_loss(kwargs['gt_depth'], results['depth'])
             losses.update(loss_depth)
 
-        if self.with_specific_component('motion_head'):
+        if self.with_specific_component('motion_head') and agent_instances is not None:
             preds_motion_dicts = self.motion_head(
                 agent_instances,
                 preds_map_dicts[-1],
@@ -685,6 +686,7 @@ class BEVPlanner(CenterPoint):
             points, img=img, img_metas=img_metas, **kwargs)
         
         output_list = [dict() for _ in range(len(img_metas))]
+        agent_instances = None
         
         if  self.with_pts_bbox:
             if getattr(self.pts_bbox_head, 'tracking', False):
@@ -709,7 +711,7 @@ class BEVPlanner(CenterPoint):
             preds_map_dicts = [None] # dummy
             pred_map = [None for _ in range(len(img_metas))]
 
-        if self.with_specific_component('motion_head'):
+        if self.with_specific_component('motion_head') and agent_instances is not None:
             preds_motion_dicts = self.motion_head(
                 agent_instances,
                 preds_map_dicts[-1],
