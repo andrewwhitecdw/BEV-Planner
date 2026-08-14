@@ -400,7 +400,6 @@ class AD_MLP(Base3DDetector):
 
         pred_ego_fut_trajs = torch.cumsum(pred_ego_fut_trajs[gt_ego_fut_cmd==1], 1)
         # pred_ego_fut_trajs = vad_ego_fut_trajs[0][None]
-        pred_ego_fut_trajs = preds_dicts['fut_traj_from_velo']
         ego_trajs = torch.cat([torch.zeros_like(pred_ego_fut_trajs[:,:1]), pred_ego_fut_trajs], 1)
         ego_trajs = torch.cat([ego_trajs, torch.zeros_like(ego_trajs[..., :1])], -1)
         ego_trajs_in_global = transform_reference_points(ego_trajs, preds_dicts['data']['ego_pose'], reverse=False)[..., :2]
