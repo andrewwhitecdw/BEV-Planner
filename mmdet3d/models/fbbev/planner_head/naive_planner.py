@@ -94,7 +94,7 @@ class NaivePlannerHead(BaseModule):
         self.ego_fut_mode = 3
 
 
-        super(NaivePlannerHead, self).__init__()
+        super(NaivePlannerHead, self).__init__(init_cfg=init_cfg)
        
         self.pc_range = nn.Parameter(torch.tensor(
             point_cloud_range), requires_grad=False)
