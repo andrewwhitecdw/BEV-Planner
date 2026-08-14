@@ -328,7 +328,7 @@ data = dict(
     val=test_data_config,
     test=test_data_config)
 
-for key in ['val', 'test']:
+for key in ['train', 'val', 'test']:
     data[key].update(share_data_config)
 
 
