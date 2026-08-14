@@ -7,21 +7,11 @@
 
 import torch
 import torch.nn as nn 
-from mmcv.cnn import Linear, bias_init_with_prob, Scale
+from mmcv.cnn import Linear
 
 from mmcv.runner import force_fp32
-from mmdet.core import (build_assigner, build_sampler, multi_apply,
-                        reduce_mean)
-from mmdet.models.utils import build_transformer
 from mmdet.models import HEADS, build_loss
-from mmdet.models.dense_heads.anchor_free_head import AnchorFreeHead
-from mmdet.models.utils.transformer import inverse_sigmoid
-from mmdet3d.core.bbox.coders import build_bbox_coder
 from ..streampetr.streampetr_utils import *
-import copy
-from mmdet.models.utils import NormedLinear
-from mmdet3d.core import bbox3d2result, merge_aug_bboxes_3d
-from mmdet3d.models.fbbev.utils import save_tensor
 from mmcv.runner.base_module import BaseModule
 from mmcv.cnn.bricks.transformer import build_transformer_layer_sequence
 from .metric_stp3 import PlanningMetric
