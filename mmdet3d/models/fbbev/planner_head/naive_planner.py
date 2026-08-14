@@ -144,6 +144,7 @@ class NaivePlannerHead(BaseModule):
 
             self.ego_agent_decoder = build_transformer_layer_sequence(ego_agent_decoder)
             self.gamma = nn.Parameter(torch.ones(256)*0.5, requires_grad=True)
+            self.register_buffer('map_alpha', torch.tensor(0.1))
         self.ego_img_decoder = build_transformer_layer_sequence(ego_img_decoder)
         # self.ego_decoder = build_transformer_layer_sequence(ego_agent_decoder)
 
