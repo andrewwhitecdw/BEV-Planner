@@ -91,7 +91,7 @@ num_cls = 19  # 0 others, 1-16 obj, 17 free
 fix_void = num_cls == 19
 ###
 
-map_classes = ['divider', 'ped_crossing', 'boundary']
+map_classes = ['ped_crossing', 'divider', 'boundary']
 map_num_vec = 100
 map_fixed_ptsnum_per_gt_line = 20 # now only support fixed_pts > 0
 map_fixed_ptsnum_per_pred_line = 20
@@ -310,7 +310,7 @@ train_pipeline = [
         type='LoadVectorMap2',
         data_root = data_root,
         point_cloud_range =point_cloud_range,
-        map_classes = ['divider', 'ped_crossing', 'boundary'],
+        map_classes = ['ped_crossing', 'divider', 'boundary'],
         map_num_vec = 100,
         map_fixed_ptsnum_per_line = 20, # now only support fixed_pts > 0,
         map_eval_use_same_gt_sample_num_flag = True,
@@ -356,7 +356,7 @@ test_pipeline = [
                 type='LoadVectorMap',
                 data_root = data_root,
                 point_cloud_range =point_cloud_range,
-                map_classes = ['divider', 'ped_crossing', 'boundary'],
+                map_classes = ['ped_crossing', 'divider', 'boundary'],
                 map_num_vec = 100,
                 map_fixed_ptsnum_per_line = 20, # now only support fixed_pts > 0,
                 map_eval_use_same_gt_sample_num_flag = True,
