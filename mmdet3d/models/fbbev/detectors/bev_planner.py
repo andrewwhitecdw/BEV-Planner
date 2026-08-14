@@ -456,7 +456,9 @@ class BEVPlanner(CenterPoint):
             bev_feat = self.fuse_history(bev_feat, img_metas, img[6])
 
         if self.with_ego_status:
-            can_bus_info = torch.cat(kwargs['can_bus_info'])
+            can_bus_info = kwargs['can_bus_info']
+            if not isinstance(can_bus_info, torch.Tensor):
+                can_bus_info = torch.cat(can_bus_info)
             bev_feat = bev_feat + self.can_bus_mlp(can_bus_info)[:, :, None, None]
 
         bev_feat = self.bev_encoder(bev_feat)
