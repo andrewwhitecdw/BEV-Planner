@@ -196,7 +196,7 @@ model = dict(
         # streaming_cfg=None,
         transformer=dict(
             type='MapTransformer',
-            num_feature_levels=1,
+            num_feature_levels=num_feat_levels,
             num_points=num_points,
             coord_dim=2,
             encoder=dict(
@@ -221,7 +221,7 @@ model = dict(
                             type='CustomMSDeformableAttention',
                             embed_dims=embed_dims,
                             num_heads=8,
-                            num_levels=1,
+                            num_levels=num_feat_levels,
                             num_points=num_points,
                             dropout=0.1,
                         ),
