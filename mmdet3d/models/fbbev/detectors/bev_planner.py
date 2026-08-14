@@ -162,6 +162,8 @@ class BEVPlanner(CenterPoint):
         self.align_prev_bev=align_prev_bev
         self.fuse_history_bev = fuse_history_bev
         if self.fuse_history_bev:
+            assert self.forward_projection is not None, (
+                'fuse_history_bev requires forward_projection to be set')
             self._init_fuse_layers()
         self.history_sweep_time = None
         self.history_bev = None
