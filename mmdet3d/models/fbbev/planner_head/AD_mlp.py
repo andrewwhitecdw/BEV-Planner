@@ -221,9 +221,6 @@ class AD_MLP(Base3DDetector):
         self.ego_fut_steps = 6
 
         vel = gt_ego_lcf_feat[:, :2].unsqueeze(1).repeat(1, self.ego_fut_steps, 1) # * torch.arange(1, self.ego_fut_steps+1)
-        accelation =  gt_ego_lcf_feat[:, 2:4].unsqueeze(1).repeat(1, self.ego_fut_steps, 1) * torch.arange(1, self.ego_fut_steps+1)[None, :, None].to(vel.device) * 0.5
-        vel = vel # + accelation
-
         fut_traj_from_velo = torch.cumsum(vel * 0.5, 1)# [0]
         gt_ego_fut_trajs = kwargs['gt_ego_fut_trajs']# [0]
         # np.corrco(fut_traj_from_velo.cpu().numpy(), gt_ego_fut_trajs.cpu().numpy())
