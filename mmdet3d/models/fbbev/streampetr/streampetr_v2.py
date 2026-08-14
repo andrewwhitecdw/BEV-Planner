@@ -164,7 +164,6 @@ class SparseHead4BEV(AnchorFreeHead):
         self.test_cfg = test_cfg
         self.fp16_enabled = False
         self.embed_dims = embed_dims
-        self.with_dn = with_dn
         self.stride=stride
 
         self.scalar = scalar
