@@ -139,7 +139,7 @@ model = dict(
     img_det_2d_head=dict(
         type='YOLOXHeadCustom',
         num_classes=10,
-        in_channels=80,
+        in_channels=_dim_,  # match CustomFPN output channels (256)
         strides=[16],
         train_cfg=dict(assigner=dict(type='SimOTAAssigner', center_radius=2.5)),
         test_cfg=dict(score_thr=0.01, nms=dict(type='nms', iou_threshold=0.65)),
