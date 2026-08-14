@@ -109,7 +109,7 @@ cat2id = {
     'divider': 1,
     'boundary': 2,
 }
-num_class = max(list(cat2id.values())) + 1
+num_classes = max(list(cat2id.values())) + 1
 
 
 num_points = 20
@@ -179,7 +179,7 @@ model = dict(
         type='MapDetectorHead',
         num_queries=num_queries,
         embed_dims=embed_dims,
-        num_classes=num_class,
+        num_classes=num_classes,
         in_channels=embed_dims,
         num_points=num_points,
         roi_size=roi_size,
