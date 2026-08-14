@@ -153,7 +153,7 @@ class AD_MLP(Base3DDetector):
         self.embed_dims = embed_dims
         self.num_motion_mode = 6
         self.fut_steps = 6
-        self.memory_len = 6
+        self.memory_len = memory_len
         self.ego_fut_mode = 3
 
        
