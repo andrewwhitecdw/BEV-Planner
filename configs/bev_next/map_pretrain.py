@@ -400,6 +400,8 @@ test_data_config = dict(
     ),
     load_fut_bbox_info=True,
     sequences_split_num=test_sequences_split_num,
+    test_mode=True,
+    filter_empty_gt=filter_empty_gt,
     ann_file=data_root + 'bev-next-nuscenes_infos_val.pkl')
 
 data = dict(
