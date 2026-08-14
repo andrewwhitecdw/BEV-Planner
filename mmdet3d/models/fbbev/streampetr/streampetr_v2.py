@@ -326,11 +326,11 @@ class SparseHead4BEV(AnchorFreeHead):
                 rand_prob = torch.rand_like(known_bbox_center) * 2 - 1.0
                 known_bbox_center += torch.mul(rand_prob,
                                             diff) * self.bbox_noise_scale
-                known_bbox_center[..., 0:3] = (known_bbox_center[..., 0:3] - self.pc_range[0:3]) / (self.pc_range[3:6] - self.pc_range[0:3])
-
-                known_bbox_center = known_bbox_center.clamp(min=0.0, max=1.0)
                 mask = torch.norm(rand_prob, 2, 1) > self.split
                 known_labels[mask] = self.num_classes
+
+            known_bbox_center[..., 0:3] = (known_bbox_center[..., 0:3] - self.pc_range[0:3]) / (self.pc_range[3:6] - self.pc_range[0:3])
+            known_bbox_center = known_bbox_center.clamp(min=0.0, max=1.0)
             
             single_pad = int(max(known_num))
             pad_size = int(single_pad * self.scalar)
