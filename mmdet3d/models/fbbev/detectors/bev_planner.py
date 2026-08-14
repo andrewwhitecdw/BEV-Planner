@@ -984,7 +984,11 @@ class BEVPlanner(CenterPoint):
 
     def _render_traj(self, future_traj, traj_score=1, colormap='winter', points_per_step=5, line_color=None, dot_color=None, dot_size=25):
         total_steps = (len(future_traj)-1) * points_per_step + 1
-        dot_colors = matplotlib.colormaps[colormap](
+        if hasattr(matplotlib, 'colormaps'):
+            cmap = matplotlib.colormaps[colormap]
+        else:
+            cmap = matplotlib.cm.get_cmap(colormap)
+        dot_colors = cmap(
             np.linspace(0, 1, total_steps))[:, :3] * 255
         dot_colors = dot_colors*traj_score + \
             (1-traj_score)*np.ones_like(dot_colors)
