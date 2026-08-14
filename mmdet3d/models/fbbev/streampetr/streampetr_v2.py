@@ -290,7 +290,7 @@ class SparseHead4BEV(AnchorFreeHead):
             tgt = torch.cat([tgt, temp_memory[:, :self.num_propagated]], dim=1)
             query_pos = torch.cat([query_pos, temp_pos[:, :self.num_propagated]], dim=1)
             reference_points = torch.cat([reference_points, temp_reference_points[:, :self.num_propagated]], dim=1)
-            rec_ego_pose = torch.eye(4, device=query_pos.device).unsqueeze(0).unsqueeze(0).repeat(B, query_pos.shape[1]+self.num_propagated, 1, 1)
+            rec_ego_pose = torch.eye(4, device=query_pos.device).unsqueeze(0).unsqueeze(0).repeat(B, query_pos.shape[1], 1, 1)
             temp_memory = temp_memory[:, self.num_propagated:]
             temp_pos = temp_pos[:, self.num_propagated:]
             temp_reference_points = temp_reference_points[:, self.num_propagated:]
