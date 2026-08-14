@@ -226,6 +226,16 @@ class BEVPlanner(CenterPoint):
                 _, output_dim, ouput_H, output_W = x_list.shape
                 return x_list.view(B, N, output_dim, ouput_H, output_W), [x_list.view(B, N, output_dim, ouput_H, output_W)]
         
+        else:
+            if type(x) in [list, tuple]:
+                x_list = list(x)
+                for i, feat in enumerate(x_list):
+                    _, output_dim, ouput_H, output_W = feat.shape
+                    x_list[i] = feat.view(B, N, output_dim, ouput_H, output_W)
+                return x_list[1], x_list
+            else:
+                _, output_dim, ouput_H, output_W = x.shape
+                return x.view(B, N, output_dim, ouput_H, output_W), [x.view(B, N, output_dim, ouput_H, output_W)]
 
     @force_fp32()
     def bev_encoder(self, x):
