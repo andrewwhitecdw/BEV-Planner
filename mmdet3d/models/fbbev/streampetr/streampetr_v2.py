@@ -102,21 +102,13 @@ class SparseHead4BEV(AnchorFreeHead):
         # since it brings inconvenience when the initialization of
         # `AnchorFreeHead` is called.
         self.different_heads = different_heads
-        if 'code_size' in kwargs:
-            self.code_size = kwargs['code_size']
-        else:
-            self.code_size = 10
-        if code_weights is not None:
-            self.code_weights = code_weights
-        else:
-            self.code_weights = [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.2, 0.2]
+        self.code_size = kwargs.get('code_size', 10)
+        self.code_weights = (code_weights if code_weights is not None
+                             else [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.2, 0.2])
 
         self.code_weights = self.code_weights[:self.code_size]
 
-        if match_costs is not None:
-            self.match_costs = match_costs
-        else:
-            self.match_costs = self.code_weights
+        self.match_costs = match_costs if match_costs is not None else self.code_weights
             
         self.bg_cls_weight = 0
         self.sync_cls_avg_factor = sync_cls_avg_factor
