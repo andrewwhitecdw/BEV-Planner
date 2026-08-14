@@ -84,9 +84,9 @@ class BEVPlanner(CenterPoint):
                 add_forward_backbward_feats -
                 fix_void - Used to fix legacy bugs in Occupancy
                 occupancy_save_path -
-                do_history - A Flag to start the temporal traning at i-th epoch
+                do_history - A Flag to start the temporal training at i-th epoch
                 interpolation_mode -
-                fuse_history_bev - Weather to use history bev, which is different from `do_hisitory` 
+                fuse_history_bev - Whether to use history bev, which is different from `do_history`
                 history_cat_num -
                 history_cat_conv_out_channels -
                 single_bev_num_channels -
