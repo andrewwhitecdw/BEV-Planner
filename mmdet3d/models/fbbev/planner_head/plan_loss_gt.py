@@ -287,6 +287,7 @@ def plan_col_loss(
     # agent_fut_preds = agent_fut_preds.cumsum(dim=-2)
     # target = target[:, :, None, :] + agent_fut_preds
     # filter distant agents from ego vehicle
+    target = target.clone()
 
     dist = torch.linalg.norm(pred[:, None, :, :] - target, dim=-1)
     dist_mask = dist > dis_thresh
