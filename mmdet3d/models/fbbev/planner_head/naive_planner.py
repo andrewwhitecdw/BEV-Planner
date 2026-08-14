@@ -330,9 +330,9 @@ class NaivePlannerHead(BaseModule):
         
 
         ego_fut_preds = preds_plan_dicts['ego_fut_preds']
-        gt_ego_fut_trajs = torch.stack(gt_ego_fut_trajs)
-        gt_ego_fut_cmd = torch.stack(gt_ego_fut_cmd)
-        gt_ego_fut_masks = torch.stack(gt_ego_fut_masks)
+        gt_ego_fut_trajs = torch.stack(gt_ego_fut_trajs).to(ego_fut_preds.device)
+        gt_ego_fut_cmd = torch.stack(gt_ego_fut_cmd).to(ego_fut_preds.device)
+        gt_ego_fut_masks = torch.stack(gt_ego_fut_masks).to(ego_fut_preds.device)
         gt_ego_fut_trajs = torch.cat([gt_ego_fut_trajs[:,:1], (gt_ego_fut_trajs[:,1:] - gt_ego_fut_trajs[:,:-1])], 1)
         gt_ego_fut_trajs = gt_ego_fut_trajs.unsqueeze(1).repeat(1, self.ego_fut_mode, 1, 1)
 
