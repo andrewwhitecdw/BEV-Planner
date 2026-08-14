@@ -288,6 +288,8 @@ def plan_col_loss(
     # target = target[:, :, None, :] + agent_fut_preds
     # filter distant agents from ego vehicle
 
+    # Work on a copy so the caller's target tensor is not mutated.
+    target = target.clone()
     dist = torch.linalg.norm(pred[:, None, :, :] - target, dim=-1)
     dist_mask = dist > dis_thresh
     target[dist_mask] = 1e6
