@@ -151,8 +151,6 @@ class NaivePlannerHead(BaseModule):
         self._init_layers()
         self.reset_memory()
         self.planning_metric = PlanningMetric()
-
-        self.count = 0
     
     def reset_memory(self):
         self.memory_traj = None
