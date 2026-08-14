@@ -105,8 +105,8 @@ num_queries = 100
 
 # category configs
 cat2id = {
-    'ped_crossing': 0,
-    'divider': 1,
+    'divider': 0,
+    'ped_crossing': 1,
     'boundary': 2,
 }
 num_class = max(list(cat2id.values())) + 1
