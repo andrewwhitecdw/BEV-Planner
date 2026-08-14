@@ -262,7 +262,7 @@ test_pipeline = [
         type='CustomDistMultiScaleFlipAug3D',
         tta=False,
         transforms=[
-            dict(type='PrepareImageInputs', data_config=data_config, normalize_cfg=normalize_cfg),
+            dict(type='PrepareImageInputs', data_config=data_config, normalize_cfg=normalize_cfg, is_train=False),
             dict(
                 type='LoadAnnotationsBEVDepth',
                 bda_aug_conf=bda_aug_conf,
