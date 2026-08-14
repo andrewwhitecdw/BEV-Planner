@@ -436,13 +436,13 @@ class SparseHead4BEV(AnchorFreeHead):
             rec_velo = all_bbox_preds[:, :, mask_dict['pad_size']:, -2:][-1]
             rec_memory = outs_dec[:, :, mask_dict['pad_size']:, :][-1]
             rec_score = all_cls_scores[:, :, mask_dict['pad_size']:, :][-1].sigmoid().topk(1, dim=-1).values[..., 0:1]
-            rec_timestamp = torch.zeros_like(rec_score, dtype=torch.float64)
+            rec_timestamp = torch.zeros_like(rec_score)
         else:
             rec_reference_points = all_bbox_preds[..., :3][-1]
             rec_velo = all_bbox_preds[..., -2:][-1]
             rec_memory = outs_dec[-1]
             rec_score = all_cls_scores[-1].sigmoid().topk(1, dim=-1).values[..., 0:1]
-            rec_timestamp = torch.zeros_like(rec_score, dtype=torch.float64)
+            rec_timestamp = torch.zeros_like(rec_score)
         
         # topk proposals
         _, topk_indexes = torch.topk(rec_score, self.topk_proposals, dim=1)
