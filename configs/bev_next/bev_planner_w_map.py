@@ -254,6 +254,7 @@ model = dict(
             type='LinesL1Loss',
             loss_weight=5.0,
             beta=0.01,
+            permute=permute,
         ),
         assigner=dict(
             type='HungarianLinesAssigner',
