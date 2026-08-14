@@ -8,7 +8,9 @@
 # we follow the online training settings  from solofusion
 num_gpus = 8
 samples_per_gpu = 4
-num_iters_per_epoch = int(28130 // (num_gpus * samples_per_gpu) )
+# Total number of training samples in the nuScenes train split.
+num_train_samples = 28130
+num_iters_per_epoch = int(num_train_samples // (num_gpus * samples_per_gpu) )
 num_epochs = 60
 checkpoint_epoch_interval = 12
 use_custom_eval_hook=True
