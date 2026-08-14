@@ -12,15 +12,11 @@ import os
 from mmdet.models import DETECTORS
 from mmdet3d.models import builder
 from mmdet3d.models.detectors import CenterPoint
-from mmdet3d.models.builder import build_head, build_neck
 import numpy as np
-import torch
-import torchvision
 import matplotlib
 import cv2
 import mmcv
 from ..utils.grid_mask import GridMask
-from ..utils.bricks import save_tensor
 
 def generate_forward_transformation_matrix(bda, img_meta_dict=None):
     b = bda.size(0)
