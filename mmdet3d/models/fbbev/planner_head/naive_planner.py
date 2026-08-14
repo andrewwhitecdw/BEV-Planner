@@ -79,6 +79,7 @@ class NaivePlannerHead(BaseModule):
         else:
             self.code_size = 2
         self.use_map_info = use_map_info
+        self.map_alpha = 0.0
 
         self.with_ego_status = with_ego_status
         self.num_query = num_query
