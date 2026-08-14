@@ -613,9 +613,10 @@ class SparseHead4BEV(AnchorFreeHead):
         """
         output_known_class, output_known_coord = mask_dict['output_known_lbs_bboxes']
         known_labels, known_bboxs = mask_dict['known_lbs_bboxes']
-        map_known_indice = mask_dict['map_known_indice'].long()
-        known_indice = mask_dict['known_indice'].long().cpu()
-        batch_idx = mask_dict['batch_idx'].long()
+        device = output_known_class.device
+        map_known_indice = mask_dict['map_known_indice'].long().to(device)
+        known_indice = mask_dict['known_indice'].long().to(device)
+        batch_idx = mask_dict['batch_idx'].long().to(device)
         bid = batch_idx[known_indice]
         if len(output_known_class) > 0:
             output_known_class = output_known_class.permute(1, 2, 0, 3)[(bid, map_known_indice)].permute(1, 0, 2)
