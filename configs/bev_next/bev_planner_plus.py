@@ -8,7 +8,7 @@
 # we follow the online training settings  from solofusion
 num_gpus = 8
 samples_per_gpu = 4
-num_iters_per_epoch = int(28130 // (num_gpus * samples_per_gpu) )
+num_iters_per_epoch = 28130 // (num_gpus * samples_per_gpu)
 num_epochs = 12
 checkpoint_epoch_interval = 1
 use_custom_eval_hook=True
@@ -79,7 +79,7 @@ grid_config = {
     'z': [-5, 3, 8],
     'depth': [1.0, 60.0, 0.5],
 }
-depth_categories = 118 #(grid_config['depth'][1]-grid_config['depth'][0])//grid_config['depth'][2]
+depth_categories = int((grid_config['depth'][1] - grid_config['depth'][0]) // grid_config['depth'][2])
 
 numC_Trans=80
 _dim_ = 256
@@ -222,11 +222,11 @@ train_pipeline = [
         type='LoadVectorMap2',
         data_root = data_root,
         point_cloud_range =point_cloud_range,
-        map_classes = ['divider', 'ped_crossing', 'boundary'],
-        map_num_vec = 100,
-        map_fixed_ptsnum_per_line = 20, # now only support fixed_pts > 0,
-        map_eval_use_same_gt_sample_num_flag = True,
-        map_num_classes = 3,
+        map_classes = map_classes,
+        map_num_vec = map_num_vec,
+        map_fixed_ptsnum_per_line = map_fixed_ptsnum_per_gt_line,
+        map_eval_use_same_gt_sample_num_flag = map_eval_use_same_gt_sample_num_flag,
+        map_num_classes = map_num_classes,
     ),   
     dict(type='PointToMultiViewDepth', downsample=1, grid_config=grid_config),
     dict(type='LoadGTMotion'),
@@ -268,11 +268,11 @@ test_pipeline = [
                 type='LoadVectorMap',
                 data_root = data_root,
                 point_cloud_range =point_cloud_range,
-                map_classes = ['divider', 'ped_crossing', 'boundary'],
-                map_num_vec = 100,
-                map_fixed_ptsnum_per_line = 20, # now only support fixed_pts > 0,
-                map_eval_use_same_gt_sample_num_flag = True,
-                map_num_classes = 3,
+                map_classes = map_classes,
+                map_num_vec = map_num_vec,
+                map_fixed_ptsnum_per_line = map_fixed_ptsnum_per_gt_line,
+                map_eval_use_same_gt_sample_num_flag = map_eval_use_same_gt_sample_num_flag,
+                map_num_classes = map_num_classes,
             ),   
             dict(type='LoadGTPlaner'),
             dict(type='LoadGTMotion',  with_ego_as_agent=with_ego_as_agent),   
